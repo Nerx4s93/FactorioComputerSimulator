@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{333B96A1-68AB-4A93-AF76-712C0063144F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>FactorioComputerSimulator</RootNamespace>
+    <AssemblyName>FactorioComputerSimulator</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>9</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assembler\CodeSimulator.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\RAdd.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\RDiv.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\RMul.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\RSub.cs" />
+    <Compile Include="Assembler\Commands\Logic\RAnd.cs" />
+    <Compile Include="Assembler\Commands\Logic\ROr.cs" />
+    <Compile Include="Assembler\Commands\Logic\RXor.cs" />
+    <Compile Include="Assembler\Commands\Memory\RLoad.cs" />
+    <Compile Include="Assembler\Commands\Memory\RMov.cs" />
+    <Compile Include="Assembler\Commands\Memory\RStore.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJle.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJge.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jge.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jle.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJe.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJg.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJl.cs" />
+    <Compile Include="Assembler\Commands\Transitions\RJne.cs" />
+    <Compile Include="Assembler\CompiledLine.cs" />
+    <Compile Include="Assembler\InstructionCompiler.cs" />
+    <Compile Include="Assembler\CodeEditor.cs" />
+    <Compile Include="Assembler\Command.cs" />
+    <Compile Include="Assembler\CommandRegistry.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Add.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Dec.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Inc.cs" />
+    <Compile Include="Assembler\Commands\Logic\And.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Div.cs" />
+    <Compile Include="Assembler\Commands\Logic\Not.cs" />
+    <Compile Include="Assembler\Commands\Logic\Or.cs" />
+    <Compile Include="Assembler\Commands\Logic\Xor.cs" />
+    <Compile Include="Assembler\Commands\Memory\Load.cs" />
+    <Compile Include="Assembler\Commands\Ports\In.cs" />
+    <Compile Include="Assembler\Commands\Ports\Out.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Je.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jg.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jl.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jne.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Jmp.cs" />
+    <Compile Include="Assembler\Commands\Memory\Mov.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Mul.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Sub.cs" />
+    <Compile Include="Assembler\Commands\Memory\Store.cs" />
+    <Compile Include="Assembler\Core.cs" />
+    <Compile Include="Assembler\ParsingChecks\CommandCheck.cs" />
+    <Compile Include="Assembler\ParsingChecks\NumberCheck.cs" />
+    <Compile Include="Assembler\ParsingChecks\RegisterCheck.cs" />
+    <Compile Include="Assembler\ParsingChecks\WordCheck.cs" />
+    <Compile Include="Assembler\ParsingChecks\WordCheckManager.cs" />
+    <Compile Include="Assembler\Simulation\DisplayFormat.cs" />
+    <Compile Include="Assembler\Simulation\Memory.cs" />
+    <Compile Include="Assembler\Simulation\Registers.cs" />
+    <Compile Include="Assembler\Simulation\SimulatorHandle.cs" />
+    <Compile Include="Assembler\SyntaxHighlighter.cs" />
+    <Compile Include="GUI\CodeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CodeEditor.Designer.cs">
+      <DependentUpon>CodeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CompiledCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CompiledCodeForm.Designer.cs">
+      <DependentUpon>CompiledCodeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Simulation\MemoryInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Simulation\MemoryInformationForm.Designer.cs">
+      <DependentUpon>MemoryInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Simulation\RegistersInformationShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Simulation\RegistersInformationShow.Designer.cs">
+      <DependentUpon>RegistersInformationShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GUI\SimulationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SimulationForm.Designer.cs">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="GUI\CodeEditor.resx">
+      <DependentUpon>CodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\CompiledCodeForm.resx">
+      <DependentUpon>CompiledCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Simulation\MemoryInformationForm.resx">
+      <DependentUpon>MemoryInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Simulation\RegistersInformationShow.resx">
+      <DependentUpon>RegistersInformationShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="GUI\SimulationForm.resx">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
