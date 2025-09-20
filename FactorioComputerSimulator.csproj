@@ -54,6 +54,8 @@
     <Compile Include="Assembler\Commands\Transitions\Jge.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jle.cs" />
     <Compile Include="Assembler\CompiledLine.cs" />
+    <Compile Include="Assembler\Exceptions\AsmException.cs" />
+    <Compile Include="Assembler\Exceptions\InvalidCommandTypeException.cs" />
     <Compile Include="Assembler\InstructionCompiler.cs" />
     <Compile Include="Assembler\CodeEditor.cs" />
     <Compile Include="Assembler\Command.cs" />
