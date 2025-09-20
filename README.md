@@ -15,6 +15,26 @@
 
 # Команды
 ## Арифметика
+### add
+### sub
+### mul
+### div
+### inc
+### dec
 ## Логика
+### and
+### or
+### xor
+### not
 ## Память
+### mov
+### load
+### storage
 ## Переходы
+### jmp
+### je
+### jne
+### jg
+### jl
+### jge
+### jle
