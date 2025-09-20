@@ -2,13 +2,14 @@
 {
     public class InvalidCommandTypeException : AsmException
     {
+        public string Command { get; }
         public int CommandType { get; }
 
-        public InvalidCommandTypeException(int commandType)
-            : base($"Неизвестный тип команды: {commandType}. Допустимы значения 0–3.")
+        public InvalidCommandTypeException(string command, int commandType)
+            : base($"Для команды '{command}' не существует типа {commandType}.")
         {
+            Command = command;
             CommandType = commandType;
         }
     }
-
 }
