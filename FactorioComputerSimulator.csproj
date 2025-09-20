@@ -50,24 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembler\CodeSimulator.cs" />
-    <Compile Include="Assembler\Commands\Arithmetic\RAdd.cs" />
-    <Compile Include="Assembler\Commands\Arithmetic\RDiv.cs" />
-    <Compile Include="Assembler\Commands\Arithmetic\RMul.cs" />
-    <Compile Include="Assembler\Commands\Arithmetic\RSub.cs" />
-    <Compile Include="Assembler\Commands\Logic\RAnd.cs" />
-    <Compile Include="Assembler\Commands\Logic\ROr.cs" />
-    <Compile Include="Assembler\Commands\Logic\RXor.cs" />
-    <Compile Include="Assembler\Commands\Memory\RLoad.cs" />
-    <Compile Include="Assembler\Commands\Memory\RMov.cs" />
-    <Compile Include="Assembler\Commands\Memory\RStore.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJle.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJge.cs" />
+    <Compile Include="Assembler\Commands\Arithmetic\Sub.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jge.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jle.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJe.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJg.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJl.cs" />
-    <Compile Include="Assembler\Commands\Transitions\RJne.cs" />
     <Compile Include="Assembler\CompiledLine.cs" />
     <Compile Include="Assembler\InstructionCompiler.cs" />
     <Compile Include="Assembler\CodeEditor.cs" />
@@ -82,8 +67,6 @@
     <Compile Include="Assembler\Commands\Logic\Or.cs" />
     <Compile Include="Assembler\Commands\Logic\Xor.cs" />
     <Compile Include="Assembler\Commands\Memory\Load.cs" />
-    <Compile Include="Assembler\Commands\Ports\In.cs" />
-    <Compile Include="Assembler\Commands\Ports\Out.cs" />
     <Compile Include="Assembler\Commands\Transitions\Je.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jg.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jl.cs" />
@@ -91,7 +74,6 @@
     <Compile Include="Assembler\Commands\Transitions\Jmp.cs" />
     <Compile Include="Assembler\Commands\Memory\Mov.cs" />
     <Compile Include="Assembler\Commands\Arithmetic\Mul.cs" />
-    <Compile Include="Assembler\Commands\Arithmetic\Sub.cs" />
     <Compile Include="Assembler\Commands\Memory\Store.cs" />
     <Compile Include="Assembler\Core.cs" />
     <Compile Include="Assembler\ParsingChecks\CommandCheck.cs" />

@@ -6,7 +6,7 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
     {
         public override string Group => "Transitions";
         public override string Name => "jmp";
-        public override int Id => 27;
+        public override int Id => 13;
         public override int ByteData => 2;
 
         public override void Execute(ref int pc, byte[] args, Registers registers, Simulation.Memory ram)
