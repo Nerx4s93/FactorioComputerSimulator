@@ -7,8 +7,8 @@ namespace FactorioComputerSimulator.Assembler
         public abstract string Group { get; }
         public abstract string Name { get; }
         public abstract int Id { get; }
-        public abstract int ByteData { get; }
 
-        public abstract void Execute(ref int pc, byte[] args, Registers registers, Memory ram);
+        public abstract int GetByteData(int commandType);
+        public abstract void Execute(ref int pc, int commandType, byte[] args, Registers registers, Memory ram);
     }
 }

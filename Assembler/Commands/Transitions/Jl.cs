@@ -7,9 +7,13 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
         public override string Group => "Transitions";
         public override string Name => "jl";
         public override int Id => 17;
-        public override int ByteData => 3;
 
-        public override void Execute(ref int pc, byte[] args, Registers registers, Simulation.Memory ram)
+        public override int GetByteData(int commandType)
+        {
+            return 3;
+        }
+
+        public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
             if (registers["J"] < args[0])
             {
@@ -17,7 +21,7 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
             }
             else
             {
-                pc += 2 + ByteData;
+                pc += 2 + GetByteData(commandType);
             }
         }
     }

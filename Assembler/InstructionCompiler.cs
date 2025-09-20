@@ -69,7 +69,7 @@ namespace FactorioComputerSimulator.Assembler
                     throw new Exception("Неизвестная команда: " + parts[0]);
                 }
 
-                byteOffset += 2 + command.ByteData;
+                byteOffset += 2 + command.ByteData; // TODO: GET BYTEDATA
             }
 
             return labelToAddress;
