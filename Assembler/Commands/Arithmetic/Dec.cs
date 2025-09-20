@@ -1,4 +1,5 @@
-﻿using FactorioComputerSimulator.Assembler.Simulation;
+﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
 {
@@ -10,7 +11,22 @@ namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
 
         public override int GetByteData(int commandType)
         {
-            return 1;
+            // 00: A   - 1 | dec
+            // 01: reg - 1 | deb B
+
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        return 0;
+                    }
+                case 1:
+                    {
+                        return 1;
+                    }
+            }
+
+            throw new InvalidCommandTypeException(Name, commandType);
         }
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)

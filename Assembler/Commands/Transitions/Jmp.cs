@@ -10,6 +10,9 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
 
         public override int GetByteData(int commandType)
         {
+            // jmp metka
+            // metka указывает на адрес ячейки для перехода, занимает 2 байта
+
             return 2;
         }
 

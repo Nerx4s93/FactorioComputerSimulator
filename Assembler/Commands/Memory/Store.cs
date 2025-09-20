@@ -1,4 +1,5 @@
-﻿using FactorioComputerSimulator.Assembler.Simulation;
+﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Memory
 {
@@ -10,7 +11,32 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
 
         public override int GetByteData(int commandType)
         {
-            return 2;
+            // 00: M   -> storage[H     << 8 | L]     | store
+            // 01: M   -> storage[const << 8 | const] | store 0b00000000, 0b10000011
+            // 10: reg -> storage[H     << 8 | L]     | store B
+            // 11: reg -> storage[const << 8 | const] | store B, 0b00000000, 0b10000011
+
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        return 0;
+                    }
+                case 1:
+                    {
+                        return 2;
+                    }
+                case 2:
+                    {
+                        return 1;
+                    }
+                case 3:
+                    {
+                        return 3;
+                    }
+            }
+
+            throw new InvalidCommandTypeException(Name, commandType);
         }
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)

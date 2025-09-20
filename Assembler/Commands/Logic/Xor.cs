@@ -1,4 +1,5 @@
-﻿using FactorioComputerSimulator.Assembler.Simulation;
+﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Logic
 {
@@ -10,7 +11,26 @@ namespace FactorioComputerSimulator.Assembler.Commands.Logic
 
         public override int GetByteData(int commandType)
         {
-            return 1;
+            // 00: L   ^ const | xor 5
+            // 01: L   ^ reg   | xor B
+            // 10: reg ^ const | xor B, 5
+            // 11: reg ^ reg   | xor B, C
+
+            switch (commandType)
+            {
+                case 0:
+                case 1:
+                    {
+                        return 1;
+                    }
+                case 2:
+                case 3:
+                    {
+                        return 2;
+                    }
+            }
+
+            throw new InvalidCommandTypeException(Name, commandType);
         }
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
