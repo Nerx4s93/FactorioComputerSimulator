@@ -174,17 +174,36 @@ namespace FactorioComputerSimulator.Assembler
                 {
                     if (part.Length != 8 || !IsBinary(part))
                     {
-                        throw new Exception("Ошибка: недопустимая бинарная строка '" + part + "'. Ожидалось 8 бит.");
+                        throw new Exception(
+                            $"Ошибка: недопустимая бинарная строка '{part}'. Ожидалось 8 бит."
+                        );
                     }
                 }
 
+                // первый байт — ID команды
                 var commandId = Convert.ToInt32(parts[0], 2);
-                var expectedArgs = Convert.ToInt32(parts[1], 2);
-                var actualArgs = parts.Length - 2;
 
+                // второй байт — служебный: [2 бита тип][3 бита размер][3 бита резерв]
+                var commandInfo = Convert.ToInt32(parts[1], 2);
+
+                var commandType = (commandInfo >> 6) & 0b11;   // старшие 2 бита
+                var expectedArgs = (commandInfo >> 3) & 0b111; // средние 3 бита
+                var reserved = commandInfo & 0b111;            // младшие 3 бита
+
+                if (reserved != 0)
+                {
+                    throw new Exception(
+                        $"Ошибка: зарезервированные биты в команде ID={commandId} должны быть равны 000."
+                    );
+                }
+
+                // проверка числа аргументов
+                var actualArgs = parts.Length - 2;
                 if (actualArgs != expectedArgs)
                 {
-                    throw new Exception("Ошибка: команда с ID=" + commandId + " ожидает " + expectedArgs + " аргументов, а получено " + actualArgs + ".");
+                    throw new Exception(
+                        $"Ошибка: команда с ID={commandId} (тип={commandType}) ожидает {expectedArgs} аргументов, а получено {actualArgs}."
+                    );
                 }
             }
         }
