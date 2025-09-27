@@ -303,7 +303,22 @@ storage B, 0b00000000, 0b00000001  // storage\[const_const\] = B
 
 ## Переходы
 ```asm
+jmp end
 
+je 5          // J == 5 -> jmp end
+je B          // J == B -> jmp end
+je B, 5       // B == 5 -> jmp end
+je B, C       // B == C -> jmp end
+
+// Абсольтно такие же пораметры можно
+// использовать для следующих команд:
+jne 5
+jg B
+jge B, 5
+jl B, C
+jle A, 0
+
+end:           // Метка
 ```
 
 ## Циклы
