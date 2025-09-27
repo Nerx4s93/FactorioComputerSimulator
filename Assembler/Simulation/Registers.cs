@@ -11,7 +11,7 @@ namespace FactorioComputerSimulator.Assembler.Simulation
             { "L", 0 }, // Логика
             { "M", 0 }, // Память
             { "H", 0 }, // Старший байт памяти
-            { "L", 0 }, // Младший байт памяти
+            { "K", 0 }, // Младший байт памяти
             { "J", 0 }, // Сравнения
             { "B", 0 },
             { "C", 0 },
@@ -21,7 +21,7 @@ namespace FactorioComputerSimulator.Assembler.Simulation
 
         private readonly string[] _registerNamesById = new string[]
         {
-            "A", "L", "M", "H", "L", "J", "B", "C", "D", "E"
+            "A", "L", "M", "H", "K", "J", "B", "C", "D", "E"
         };
 
         public byte this[string name]
