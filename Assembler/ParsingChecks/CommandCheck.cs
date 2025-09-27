@@ -29,15 +29,7 @@ namespace FactorioComputerSimulator.Assembler.ParsingChecks
 
         public override string OnCompile(string word)
         {
-            if (CommandRegistry.GetByName(word) is Command command)
-            {
-                var name = Convert.ToString(command.Id, 2).PadLeft(5, '0');
-                var data = Convert.ToString(command.ByteData, 2).PadLeft(3, '0');
-
-                return $"{name}{data}";
-            }
-
-            return "";
+            return string.Empty;
         }
     }
 }
