@@ -52,7 +52,7 @@ namespace FactorioComputerSimulator.Assembler
 
                 if (trimmed.EndsWith(":"))
                 {
-                    string label = trimmed.Substring(0, trimmed.Length - 1);
+                    var label = trimmed.Substring(0, trimmed.Length - 1);
                     labelToAddress[label] = byteOffset;
                     continue;
                 }
