@@ -84,7 +84,7 @@ namespace FactorioComputerSimulator.Assembler
             foreach (var pair in code)
             {
                 var sourceIndex = pair.SourceIndex;
-                var line = pair.Line.Trim();
+                var line = pair.Line;
 
                 if (line.EndsWith(":"))
                 {
@@ -106,15 +106,29 @@ namespace FactorioComputerSimulator.Assembler
 
                 var binaryParts = new List<string>();
 
+                // ID (8 бит)
                 var id = (byte)command.Id;
-                var argCount = (byte)command.ByteData;
                 binaryParts.Add(Convert.ToString(id, 2).PadLeft(8, '0'));
-                binaryParts.Add(Convert.ToString(argCount, 2).PadLeft(8, '0'));
+
+                var args = parts.Skip(1).ToArray();
+
+                // Тип команды (2 бита)
+                var commandType = (byte)command.GetCommandType(args);
+                var commandTypeString = Convert.ToString(commandType, 2).PadLeft(2, '0');
+
+                // Количество байт аргументов (3 бита)
+                var argCount = (byte)command.GetByteData(commandType);
+                var argCountString = Convert.ToString(argCount, 2).PadLeft(3, '0');
+
+                // Зарезервированные 3 бита
+                binaryParts.Add(commandTypeString + argCountString + "000");
+
 
                 for (var i = 1; i < parts.Length; i++)
                 {
                     var arg = parts[i];
 
+                    // Если аргумент — это метка, то заменяется её на адрес
                     if (labelToAddress.TryGetValue(arg, out int addr))
                     {
                         var high = (byte)((addr >> 8) & 0xFF);
@@ -125,6 +139,7 @@ namespace FactorioComputerSimulator.Assembler
                         continue;
                     }
 
+                    // Если аргумент — регистр, прогоняем через проверки
                     string replaced = null;
                     foreach (var check in _wordCheckManager)
                     {
