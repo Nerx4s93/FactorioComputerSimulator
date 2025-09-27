@@ -11,6 +11,11 @@ namespace FactorioComputerSimulator.Assembler.ParsingChecks
 
         private readonly Color _registerColor = Color.Cyan;
 
+        public bool Check(string word)
+        {
+            return Registers.Contains(word);
+        }
+
         public override bool Check(string word, out Color color)
         {
             if (Registers.Contains(word))
