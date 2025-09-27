@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using FactorioComputerSimulator.Assembler.ParsingChecks;
 
 namespace FactorioComputerSimulator.Assembler
@@ -48,16 +48,16 @@ namespace FactorioComputerSimulator.Assembler
 
             foreach (var pair in code)
             {
-                var trimmed = pair.Line.Trim();
+                var line = pair.Line;
 
-                if (trimmed.EndsWith(":"))
+                if (line.EndsWith(":"))
                 {
-                    var label = trimmed.Substring(0, trimmed.Length - 1);
+                    var label = line.Substring(0, line.Length - 1);
                     labelToAddress[label] = byteOffset;
                     continue;
                 }
 
-                var parts = trimmed.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var parts = line.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length == 0)
                 {
                     continue;
@@ -69,7 +69,9 @@ namespace FactorioComputerSimulator.Assembler
                     throw new Exception("Неизвестная команда: " + parts[0]);
                 }
 
-                byteOffset += 2 + command.ByteData; // TODO: GET BYTEDATA
+                var args = parts.Skip(1).ToArray();
+                var commandType = command.GetCommandType(args);
+                byteOffset += 2 + command.GetByteData(commandType);
             }
 
             return labelToAddress;
