@@ -13,7 +13,7 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
         public override int GetCommandType(string[] command)
         {
             var registerCheck = new RegisterCheck();
-            if (command.Length == 3)
+            if (command.Length == 2)
             {
                 if (registerCheck.Check(command[0]))
                 {
@@ -24,7 +24,7 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
                     return 0;
                 }
             }
-            else if (command.Length == 4)
+            else if (command.Length == 3)
             {
                 if (registerCheck.Check(command[1]))
                 {
