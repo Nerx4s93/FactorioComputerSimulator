@@ -245,8 +245,32 @@ Id команды: 20.
 
 ## Арифметика
 ```asm
+add 5          // A = A + 5
+add B          // A = A + B
+add B, 5       // B = B + 5
+add B, C       // B = B + C
 
-```
+sub 5          // A = A - 5
+sub B          // A = A + B
+sub B, 5       // B = B + 5
+sub B, C       // B = B + C
+
+mul 5          // A = A * 5
+mul B          // A = A * B
+mul B, 5       // B = B * 5
+mul B, C       // B = B * C
+
+div 5          // A = A / 5
+div B          // A = A / B
+div B, 5       // B = B / 5
+div B, C       // B = B / C
+
+inc            // A = A + 1
+inc B          // B = B + 1
+
+dec            // A = A - 1
+dec B          // B = B - 1
+``` 
 
 ## Логика
 ```asm
