@@ -1,4 +1,6 @@
 ﻿using FactorioComputerSimulator.Assembler.Simulation;
+using System;
+using System.Linq;
 
 namespace FactorioComputerSimulator.Assembler
 {
@@ -7,6 +9,13 @@ namespace FactorioComputerSimulator.Assembler
         public abstract string Group { get; }
         public abstract string Name { get; }
         public abstract int Id { get; }
+
+        public int GetCommandType(byte[] args)
+        {
+            string[] argStrings = args.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).ToArray();
+            return GetCommandType(argStrings);
+        }
+
 
         public abstract int GetCommandType(string[] command);
         public abstract int GetByteData(int commandType);

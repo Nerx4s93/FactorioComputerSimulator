@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FactorioComputerSimulator.Assembler.Simulation
 {
@@ -65,7 +64,8 @@ namespace FactorioComputerSimulator.Assembler.Simulation
         private void ExecuteInstruction(int id, byte[] args)
         {
             var command = CommandRegistry.GetById(id);
-            command.Execute(ref _pc, args, Registers, Ram);
+            var commandType = command.GetCommandType(args);
+            command.Execute(ref _pc, commandType, args, Registers, Ram);
         }
 
         public void Reset()
