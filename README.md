@@ -239,4 +239,49 @@ Id команды: 20.
 Уменьшает регистр C на 1; если C ≠ 0, переходит на указанную метку.
 | Тип команды | Тип операции                 | Пример записи   |
 |-------------|------------------------------|-----------------|
-| 0           | C - 1 -> C != 0 -> jmp metka | loop metka    |
+| 0           | C - 1 -> C != 0 -> jmp metka | loop metka      |
+
+# Примеры
+
+## Арифметика
+```asm
+
+```
+
+## Логика
+```asm
+
+```
+
+## Память
+```asm
+mov A, B                           // A = B
+mov A, 5                           // A = 5
+
+load                               // M = storage\[H_K\]
+load 0b00000000, 0b00000001        // M = storage\[const_const\]
+load B                             // B = storage\[H_K\]
+load B, 0b00000000, 0b00000001     // B = storage\[const_const\]
+
+storage                            // storage\[H_K\] = M
+storage 0b00000000, 0b00000001     // storage\[const_const\] = M
+storage B                          // storage\[H_K\] = B
+storage B, 0b00000000, 0b00000001  // storage\[const_const\] = B
+```
+
+## Переходы
+```asm
+
+```
+
+## Циклы
+```asm
+mov C, 10
+
+loop1:
+
+// Do something
+// Цикл повториться 10 ращ
+
+loop loop1
+```
