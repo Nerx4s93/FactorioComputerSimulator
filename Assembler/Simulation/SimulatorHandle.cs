@@ -48,7 +48,8 @@ namespace FactorioComputerSimulator.Assembler.Simulation
             }
 
             var opcode = Rom[_pc];
-            var argsCount = Rom[_pc + 1];
+            var infoByte = Rom[_pc + 1];
+            int argsCount = (infoByte >> 3) & 0b111;
 
             if (_pc + 1 + argsCount >= Rom.Size)
             {
