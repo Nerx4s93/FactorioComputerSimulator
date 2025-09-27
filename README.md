@@ -177,66 +177,66 @@ Id команды: 13.
 ### je
 Id команды: 14.  
 Переходит на метку, если два операнда **равны**.
-| Тип команды | Тип операции          | Пример записи  |
-|-------------|-----------------------|----------------|
-| 0           | J == const -> metka   | je 5, metka    |
-| 1           | J == reg -> metka     | je B, metka    |
-| 2           | reg == const -> metka | je B, 5, metka |
-| 3           | reg == reg -> metka   | je B, C, metka |
+| Тип команды | Тип операции              | Пример записи  |
+|-------------|---------------------------|----------------|
+| 0           | J == const -> jmp metka   | je 5, metka    |
+| 1           | J == reg -> jmp metka     | je B, metka    |
+| 2           | reg == const -> jmp metka | je B, 5, metka |
+| 3           | reg == reg -> jmp metka   | je B, C, metka |
 
 ### jne
 Id команды: 15.  
 Переходит на метку, если два операнда **не равны**.
-| Тип команды | Тип операции          | Пример записи   |
-|-------------|-----------------------|-----------------|
-| 0           | J != const -> metka   | jne 5, metka    |
-| 1           | J != reg -> metka     | jne B, metka    |
-| 2           | reg != const -> metka | jne B, 5, metka |
-| 3           | reg != reg -> metka   | jen B, C, metka |
+| Тип команды | Тип операции              | Пример записи   |
+|-------------|---------------------------|-----------------|
+| 0           | J != const -> jmp metka   | jne 5, metka    |
+| 1           | J != reg -> jmp metka     | jne B, metka    |
+| 2           | reg != const -> jmp metka | jne B, 5, metka |
+| 3           | reg != reg -> jmp metka   | jen B, C, metka |
 
 ### jg
 Id команды: 16.  
 Переходит на метку, если первый операнд **больше второго**.
-| Тип команды | Тип операции         | Пример записи  |
-|-------------|----------------------|----------------|
-| 0           | J > const -> metka   | jg 5, metka    |
-| 1           | J > reg -> metka     | jg B, metka    |
-| 2           | reg > const -> metka | jg B, 5, metka |
-| 3           | reg > reg -> metka   | jg B, C, metka |
+| Тип команды | Тип операции             | Пример записи  |
+|-------------|--------------------------|----------------|
+| 0           | J > const -> jmp metka   | jg 5, metka    |
+| 1           | J > reg -> jmp metka     | jg B, metka    |
+| 2           | reg > const -> jmp metka | jg B, 5, metka |
+| 3           | reg > reg -> jmp metka   | jg B, C, metka |
 
 ### jl
 Id команды: 17.  
 Переходит на метку, если первый операнд **меньше** второго.
-| Тип команды | Тип операции         | Пример записи  |
-|-------------|----------------------|----------------|
-| 0           | J < const -> metka   | jg 5, metka    |
-| 1           | J < reg -> metka     | jg B, metka    |
-| 2           | reg < const -> metka | jg B, 5, metka |
-| 3           | reg < reg -> metka   | jg B, C, metka |
+| Тип команды | Тип операции             | Пример записи  |
+|-------------|--------------------------|----------------|
+| 0           | J < const -> jmp metka   | jg 5, metka    |
+| 1           | J < reg -> jmp metka     | jg B, metka    |
+| 2           | reg < const -> jmp metka | jg B, 5, metka |
+| 3           | reg < reg -> jmp metka   | jg B, C, metka |
 
 ### jge
 Id команды: 18.  
 Переходит на метку, если первый операнд **больше или равен** второму.
-| Тип команды | Тип операции          | Пример записи   |
-|-------------|-----------------------|-----------------|
-| 0           | J >= const -> metka   | jge 5, metka    |
-| 1           | J >= reg -> metka     | jge B, metka    |
-| 2           | reg >= const -> metka | jge B, 5, metka |
-| 3           | reg >= reg -> metka   | jge B, C, metka |
+| Тип команды | Тип операции              | Пример записи   |
+|-------------|---------------------------|-----------------|
+| 0           | J >= const -> jmp metka   | jge 5, metka    |
+| 1           | J >= reg -> jmp metka     | jge B, metka    |
+| 2           | reg >= const -> jmp metka | jge B, 5, metka |
+| 3           | reg >= reg -> jmp metka   | jge B, C, metka |
 
 ### jle
 Id команды: 19.  
 Переходит на метку, если первый операнд **меньше или равен** второму.
-| Тип команды | Тип операции          | Пример записи   |
-|-------------|-----------------------|-----------------|
-| 0           | J <= const -> metka   | jle 5, metka    |
-| 1           | J <= reg -> metka     | jle B, metka    |
-| 2           | reg <= const -> metka | jle B, 5, metka |
-| 3           | reg <= reg -> metka   | jle B, C, metka |
+| Тип команды | Тип операции              | Пример записи   |
+|-------------|---------------------------|-----------------|
+| 0           | J <= const -> jmp metka   | jle 5, metka    |
+| 1           | J <= reg -> jmp metka     | jle B, metka    |
+| 2           | reg <= const -> jmp metka | jle B, 5, metka |
+| 3           | reg <= reg -> jmp metka   | jle B, C, metka |
 
 ### loop
 Id команды: 20.  
 Уменьшает регистр C на 1; если C ≠ 0, переходит на указанную метку.
-| Тип команды | Тип операции             | Пример записи   |
-|-------------|--------------------------|-----------------|
-| 0           | C - 1 -> C != 0 -> metka | loop metka    |
+| Тип команды | Тип операции                 | Пример записи   |
+|-------------|------------------------------|-----------------|
+| 0           | C - 1 -> C != 0 -> jmp metka | loop metka    |
