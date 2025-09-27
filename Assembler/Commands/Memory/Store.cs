@@ -35,9 +35,9 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
 
         public override int GetByteData(int commandType)
         {
-            // 00: M   -> storage[H     << 8 | L]     | store
+            // 00: M   -> storage[H     << 8 | K]     | store
             // 01: M   -> storage[const << 8 | const] | store 0b00000000, 0b10000011
-            // 10: reg -> storage[H     << 8 | L]     | store B
+            // 10: reg -> storage[H     << 8 | K]     | store B
             // 11: reg -> storage[const << 8 | const] | store B, 0b00000000, 0b10000011
 
             switch (commandType)
@@ -65,8 +65,34 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
-            var index = (args[0] << 8) | args[1];
-            ram[index] = registers["B"];
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        var index = (registers["H"] << 8) | registers["K"];
+                        ram[index] = registers["M"];
+                        break;
+                    }
+                case 1:
+                    {
+                        var index = (args[0] << 8) | args[1];
+                        ram[index] = registers["M"];
+                        break;
+                    }
+                case 2:
+                    {
+                        var index = (registers["H"] << 8) | registers["K"];
+                        ram[index] = registers[args[0]];
+                        break;
+                    }
+                case 3:
+                    {
+                        var index = (args[0] << 8) | args[1];
+                        ram[index] = registers[args[0]];
+                        break;
+                    }
+            }
+
             pc += 2 + GetByteData(commandType);
         }
     }

@@ -35,9 +35,9 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
 
         public override int GetByteData(int commandType)
         {
-            // 00: M   <- H     << 8 | L     | load
+            // 00: M   <- H     << 8 | K     | load
             // 01: M   <- const << 8 | const | load 0b00000000, 0b10000011
-            // 10: reg <- H     << 8 | L     | load B
+            // 10: reg <- H     << 8 | K     | load B
             // 11: reg <- const << 8 | const | load B, 0b00000000, 0b10000011
 
             switch (commandType)
@@ -65,8 +65,34 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
-            var index = (args[0] << 8) | args[1];
-            registers["B"] = ram[index];
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        var index = (registers["H"] << 8) | registers["K"];
+                        registers["M"] = ram[index];
+                        break;
+                    }
+                case 1:
+                    {
+                        var index = (args[0] << 8) | args[1];
+                        registers["M"] = ram[index];
+                        break;
+                    }
+                case 2:
+                    {
+                        var index = (registers["H"] << 8) | registers["K"];
+                        registers[args[0]] = ram[index];
+                        break;
+                    }
+                case 3:
+                    {
+                        var index = (args[0] << 8) | args[1];
+                        registers[args[0]] = ram[index];
+                        break;
+                    }
+            }
+
             pc += 2 + GetByteData(commandType);
         }
     }

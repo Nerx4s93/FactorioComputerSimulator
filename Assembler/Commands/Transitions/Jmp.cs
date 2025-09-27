@@ -1,5 +1,4 @@
-﻿using FactorioComputerSimulator.Assembler.ParsingChecks;
-using FactorioComputerSimulator.Assembler.Simulation;
+﻿using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Transitions
 {

@@ -66,13 +66,57 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
-            if (registers["J"] == args[0])
+            GetData(commandType, args, registers, out byte a, out byte b, out int index);
+
+            if (a == b)
             {
-                pc = (args[1] << 8) | args[2];
+                pc = index;
             }
             else
             {
                 pc += 2 + GetByteData(commandType);
+            }
+        }
+
+        private void GetData(int commandType, byte[] args, Registers registers, out byte a, out byte b, out int index)
+        {
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        a = registers["J"];
+                        b = args[0];
+                        index = (args[1] << 8) | args[2];
+                        break;
+                    }
+                case 1:
+                    {
+                        a = registers["J"];
+                        b = registers[args[0]];
+                        index = (args[1] << 8) | args[2];
+                        break;
+                    }
+                case 2:
+                    {
+                        a = registers[args[0]];
+                        b = args[1];
+                        index = (args[2] << 8) | args[3];
+                        break;
+                    }
+                case 3:
+                    {
+                        a = registers[args[0]];
+                        b = registers[args[1]];
+                        index = (args[2] << 8) | args[3];
+                        break;
+                    }
+                default:
+                    {
+                        a = 0;
+                        b = 0;
+                        index = 0;
+                        return;
+                    }
             }
         }
     }

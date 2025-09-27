@@ -65,7 +65,30 @@ namespace FactorioComputerSimulator.Assembler.Commands.Logic
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
-            registers["L"] ^= args[0];
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        registers["L"] ^= args[0];
+                        break;
+                    }
+                case 1:
+                    {
+                        registers["L"] ^= registers[args[0]];
+                        break;
+                    }
+                case 2:
+                    {
+                        registers[args[0]] ^= args[1];
+                        break;
+                    }
+                case 3:
+                    {
+                        registers[args[0]] ^= registers[args[1]];
+                        break;
+                    }
+            }
+
             pc += 2 + GetByteData(commandType);
         }
     }

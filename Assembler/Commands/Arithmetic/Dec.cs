@@ -1,5 +1,4 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
-using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
@@ -46,7 +45,20 @@ namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
 
         public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
         {
-            registers[args[0]] -= 1;
+            switch (commandType)
+            {
+                case 0:
+                    {
+                        registers["A"] -= 1;
+                        break;
+                    }
+                case 1:
+                    {
+                        registers[args[0]] -= 1;
+                        break;
+                    }
+            }
+
             pc += 2 + GetByteData(commandType);
         }
     }
