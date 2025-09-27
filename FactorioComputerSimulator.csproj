@@ -53,6 +53,7 @@
     <Compile Include="Assembler\Commands\Arithmetic\Sub.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jge.cs" />
     <Compile Include="Assembler\Commands\Transitions\Jle.cs" />
+    <Compile Include="Assembler\Commands\Transitions\Loop.cs" />
     <Compile Include="Assembler\CompiledLine.cs" />
     <Compile Include="Assembler\Exceptions\AsmException.cs" />
     <Compile Include="Assembler\Exceptions\InvalidCommandTypeException.cs" />
