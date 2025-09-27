@@ -1,4 +1,5 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
@@ -8,6 +9,35 @@ namespace FactorioComputerSimulator.Assembler.Commands.Arithmetic
         public override string Group => "Arithmetic";
         public override string Name => "div";
         public override int Id => 3;
+
+        public override int GetCommandType(string[] command)
+        {
+            var registerCheck = new RegisterCheck();
+            if (command.Length == 1)
+            {
+                if (registerCheck.Check(command[0]))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else if (command.Length == 2)
+            {
+                if (registerCheck.Check(command[1]))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+
+            return -1;
+        }
 
         public override int GetByteData(int commandType)
         {

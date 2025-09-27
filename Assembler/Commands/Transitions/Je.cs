@@ -1,4 +1,5 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Transitions
@@ -9,12 +10,41 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
         public override string Name => "je";
         public override int Id => 14;
 
+        public override int GetCommandType(string[] command)
+        {
+            var registerCheck = new RegisterCheck();
+            if (command.Length == 3)
+            {
+                if (registerCheck.Check(command[0]))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else if (command.Length == 4)
+            {
+                if (registerCheck.Check(command[1]))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+
+            return -1;
+        }
+
         public override int GetByteData(int commandType)
         {
-            // 00: J   = const | je 5, metka
-            // 01: J   = reg   | je B, metka
-            // 10: reg = const | je B, 5, metka
-            // 11: reg = reg   | je B, C, metka
+            // 00: J   == const | je 5, metka
+            // 01: J   == reg   | je B, metka
+            // 10: reg == const | je B, 5, metka
+            // 11: reg == reg   | je B, C, metka
             // metka указывает на адрес ячейки для перехода, занимает 2 байта
 
             switch (commandType)

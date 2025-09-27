@@ -1,4 +1,5 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Transitions
@@ -8,6 +9,35 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
         public override string Group => "Transitions";
         public override string Name => "jg";
         public override int Id => 16;
+
+        public override int GetCommandType(string[] command)
+        {
+            var registerCheck = new RegisterCheck();
+            if (command.Length == 3)
+            {
+                if (registerCheck.Check(command[0]))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else if (command.Length == 4)
+            {
+                if (registerCheck.Check(command[1]))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+
+            return -1;
+        }
 
         public override int GetByteData(int commandType)
         {

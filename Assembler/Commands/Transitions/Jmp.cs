@@ -1,4 +1,5 @@
-﻿using FactorioComputerSimulator.Assembler.Simulation;
+﻿using FactorioComputerSimulator.Assembler.ParsingChecks;
+using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Transitions
 {
@@ -7,6 +8,11 @@ namespace FactorioComputerSimulator.Assembler.Commands.Transitions
         public override string Group => "Transitions";
         public override string Name => "jmp";
         public override int Id => 13;
+
+        public override int GetCommandType(string[] command)
+        {
+            return 0;
+        }
 
         public override int GetByteData(int commandType)
         {

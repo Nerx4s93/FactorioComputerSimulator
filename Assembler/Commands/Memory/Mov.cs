@@ -1,4 +1,5 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
+using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Memory
@@ -8,6 +9,24 @@ namespace FactorioComputerSimulator.Assembler.Commands.Memory
         public override string Group => "Memory";
         public override string Name => "mov";
         public override int Id => 10;
+
+        public override int GetCommandType(string[] command)
+        {
+            var registerCheck = new RegisterCheck();
+            if (command.Length == 2)
+            {
+                if (registerCheck.Check(command[1]))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
+            return -1;
+        }
 
         public override int GetByteData(int commandType)
         {

@@ -9,6 +9,20 @@ namespace FactorioComputerSimulator.Assembler.Commands.Logic
         public override string Name => "not";
         public override int Id => 9;
 
+        public override int GetCommandType(string[] command)
+        {
+            if (command.Length == 0)
+            {
+                return 0;
+            }
+            else if (command.Length == 1)
+            {
+                return 1;
+            }
+
+            return -1;
+        }
+
         public override int GetByteData(int commandType)
         {
             // 00: ~L   | not
