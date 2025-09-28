@@ -1,3 +1,4 @@
 # Клавиатура для прошики ROM
-<img width="741" height="382" alt="image" src="https://github.com/user-attachments/assets/ab879129-6341-4127-93e2-14f6e26f1e2f" />
+<img width="741" height="382" alt="image" src="https://github.com/user-attachments/assets/ab879129-6341-4127-93e2-14f6e26f1e2f" />  
+
 На скришоте показана клавиатура для записи и стирания данных ROM. Снизу сундуков есть подписи, что за что отвечает.
