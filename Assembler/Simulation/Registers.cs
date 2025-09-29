@@ -18,7 +18,7 @@ public class Registers
 
     private static readonly string[] _registerNamesById = new string[]
         {
-            "A", "L", "M", "H", "K", "J", "B", "C", "D", "E"
+            "A", "L", "M", "H", "K", "J", "C", "B", "D", "E"
         };
 
     public byte this[string name]
