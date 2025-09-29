@@ -11,6 +11,11 @@ public class Registers
             { "K", 0 }, // Младший байт памяти
             { "J", 0 }, // Сравнения
             { "C", 0 }, // Циклы
+            { "Sn1", 0 },
+            { "Sn2", 0 },
+            { "Ss1", 0 },
+            { "Ss2", 0 },
+            { "Sc", 0 },
             { "B0", 0 },
             { "B1", 0 },
             { "B2", 0 },
@@ -23,7 +28,7 @@ public class Registers
 
     private static readonly string[] _registerNamesById = new string[]
         {
-            "A", "L", "M", "H", "K", "J", "C", "B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7"
+            "A", "L", "M", "H", "K", "J", "C", "Sn1", "Sn2", "Ss1", "Ss2", "Sc", "B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7"
         };
 
     public byte this[string name]
