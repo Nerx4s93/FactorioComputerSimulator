@@ -2,98 +2,97 @@
 using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
-namespace FactorioComputerSimulator.Assembler.Commands.Memory
+namespace FactorioComputerSimulator.Assembler.Commands.Memory;
+
+internal class Load : Command
 {
-    internal class Load : Command
+    public override string Group => "Memory";
+    public override string Name => "load";
+    public override int Id => 11;
+
+    public override int GetCommandType(string[] command)
     {
-        public override string Group => "Memory";
-        public override string Name => "load";
-        public override int Id => 11;
-
-        public override int GetCommandType(string[] command)
+        var registerCheck = new RegisterCheck();
+        if (command.Length == 0)
         {
-            var registerCheck = new RegisterCheck();
-            if (command.Length == 0)
-            {
-                return 0;
-            }
-            else if (command.Length == 2)
-            {
-                return 1;
-            }
-            else if (command.Length == 1)
-            {
-                return 2;
-            }
-            else if (command.Length == 4)
-            {
-                return 3;
-            }
-
-            return -1;
+            return 0;
+        }
+        else if (command.Length == 2)
+        {
+            return 1;
+        }
+        else if (command.Length == 1)
+        {
+            return 2;
+        }
+        else if (command.Length == 4)
+        {
+            return 3;
         }
 
-        public override int GetByteData(int commandType)
+        return -1;
+    }
+
+    public override int GetByteData(int commandType)
+    {
+        // 00: M   <- H     << 8 | K     | load
+        // 01: M   <- const << 8 | const | load 0b00000000, 0b10000011
+        // 10: reg <- H     << 8 | K     | load B
+        // 11: reg <- const << 8 | const | load B, 0b00000000, 0b10000011
+
+        switch (commandType)
         {
-            // 00: M   <- H     << 8 | K     | load
-            // 01: M   <- const << 8 | const | load 0b00000000, 0b10000011
-            // 10: reg <- H     << 8 | K     | load B
-            // 11: reg <- const << 8 | const | load B, 0b00000000, 0b10000011
-
-            switch (commandType)
-            {
-                case 0:
-                    {
-                        return 0;
-                    }
-                case 1:
-                    {
-                        return 2;
-                    }
-                case 2:
-                    {
-                        return 1;
-                    }
-                case 3:
-                    {
-                        return 3;
-                    }
-            }
-
-            throw new InvalidCommandTypeException(Name, commandType);
+            case 0:
+                {
+                    return 0;
+                }
+            case 1:
+                {
+                    return 2;
+                }
+            case 2:
+                {
+                    return 1;
+                }
+            case 3:
+                {
+                    return 3;
+                }
         }
 
-        public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
-        {
-            switch (commandType)
-            {
-                case 0:
-                    {
-                        var index = (registers["H"] << 8) | registers["K"];
-                        registers["M"] = ram[index];
-                        break;
-                    }
-                case 1:
-                    {
-                        var index = (args[0] << 8) | args[1];
-                        registers["M"] = ram[index];
-                        break;
-                    }
-                case 2:
-                    {
-                        var index = (registers["H"] << 8) | registers["K"];
-                        registers[args[0]] = ram[index];
-                        break;
-                    }
-                case 3:
-                    {
-                        var index = (args[0] << 8) | args[1];
-                        registers[args[0]] = ram[index];
-                        break;
-                    }
-            }
+        throw new InvalidCommandTypeException(Name, commandType);
+    }
 
-            pc += 2 + GetByteData(commandType);
+    public override void Execute(ref int pc, int commandType, byte[] args, Registers registers, Simulation.Memory ram)
+    {
+        switch (commandType)
+        {
+            case 0:
+                {
+                    var index = (registers["H"] << 8) | registers["K"];
+                    registers["M"] = ram[index];
+                    break;
+                }
+            case 1:
+                {
+                    var index = (args[0] << 8) | args[1];
+                    registers["M"] = ram[index];
+                    break;
+                }
+            case 2:
+                {
+                    var index = (registers["H"] << 8) | registers["K"];
+                    registers[args[0]] = ram[index];
+                    break;
+                }
+            case 3:
+                {
+                    var index = (args[0] << 8) | args[1];
+                    registers[args[0]] = ram[index];
+                    break;
+                }
         }
+
+        pc += 2 + GetByteData(commandType);
     }
 }

@@ -1,68 +1,64 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using FactorioComputerSimulator.Assembler.Simulation;
 
-using FactorioComputerSimulator.Assembler.Simulation;
+namespace FactorioComputerSimulator.GUI.Simulation;
 
-namespace FactorioComputerSimulator.GUI.Simulation
+public partial class RegistersInformationShow : Form
 {
-    public partial class RegistersInformationShow : Form
+    private readonly Registers _registers;
+    private DisplayFormat _currentFormat = DisplayFormat.Hex;
+
+    public RegistersInformationShow(Form parent, Registers registers)
     {
-        private readonly Registers _registers;
-        private DisplayFormat _currentFormat = DisplayFormat.Hex;
+        InitializeComponent();
+        parent.Closing += (sender, args) => Close();
+        _registers = registers;
+        _registers.RegisterChanged += Registers_RegisterChanged;
+        LoadRegisterValues();
+    }
 
-        public RegistersInformationShow(Form parent, Registers registers)
+    private void Registers_RegisterChanged(string name, byte value)
+    {
+        if (RegostersGrid.InvokeRequired)
         {
-            InitializeComponent();
-            parent.Closing += (sender, args) => Close();
-            _registers = registers;
-            _registers.RegisterChanged += Registers_RegisterChanged;
-            LoadRegisterValues();
+            RegostersGrid.Invoke(new Action(() => Registers_RegisterChanged(name, value)));
+            return;
         }
 
-        private void Registers_RegisterChanged(string name, byte value)
+        foreach (DataGridViewRow row in RegostersGrid.Rows)
         {
-            if (RegostersGrid.InvokeRequired)
+            if (row.Cells[0].Value?.ToString() == name)
             {
-                RegostersGrid.Invoke(new Action(() => Registers_RegisterChanged(name, value)));
-                return;
-            }
-
-            foreach (DataGridViewRow row in RegostersGrid.Rows)
-            {
-                if (row.Cells[0].Value?.ToString() == name)
-                {
-                    var displayValue = _currentFormat == DisplayFormat.Hex
-                        ? "0x" + value.ToString("X2")
-                        : Convert.ToString(value, 2).PadLeft(8, '0');
-
-                    row.Cells[1].Value = displayValue;
-                    break;
-                }
-            }
-        }
-
-        private void LoadRegisterValues()
-        {
-            RegostersGrid.Rows.Clear();
-
-            foreach (var name in _registers.GetRegisterNames())
-            {
-                var value = _registers[name];
                 var displayValue = _currentFormat == DisplayFormat.Hex
                     ? "0x" + value.ToString("X2")
                     : Convert.ToString(value, 2).PadLeft(8, '0');
 
-                RegostersGrid.Rows.Add(name, displayValue);
+                row.Cells[1].Value = displayValue;
+                break;
             }
         }
+    }
 
-        private void ComboBoxFormat_SelectedIndexChanged(object sender, EventArgs e)
+    private void LoadRegisterValues()
+    {
+        RegostersGrid.Rows.Clear();
+
+        foreach (var name in _registers.GetRegisterNames())
         {
-            _currentFormat = ComboBoxFormat.SelectedItem.ToString() == "Hex"
-                ? DisplayFormat.Hex
-                : DisplayFormat.Bin;
+            var value = _registers[name];
+            var displayValue = _currentFormat == DisplayFormat.Hex
+                ? "0x" + value.ToString("X2")
+                : Convert.ToString(value, 2).PadLeft(8, '0');
 
-            LoadRegisterValues();
+            RegostersGrid.Rows.Add(name, displayValue);
         }
+    }
+
+    private void ComboBoxFormat_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        _currentFormat = ComboBoxFormat.SelectedItem.ToString() == "Hex"
+            ? DisplayFormat.Hex
+            : DisplayFormat.Bin;
+
+        LoadRegisterValues();
     }
 }

@@ -1,14 +1,13 @@
 using FactorioComputerSimulator.GUI;
 
-namespace FactorioComputerSimulator
+namespace FactorioComputerSimulator;
+
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    static void Main()
     {
-        [STAThread]
-        static void Main()
-        {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new CodeEditor());
-        }
+        ApplicationConfiguration.Initialize();
+        Application.Run(new CodeEditor());
     }
 }

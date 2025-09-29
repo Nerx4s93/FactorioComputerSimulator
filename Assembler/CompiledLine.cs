@@ -1,19 +1,18 @@
-﻿namespace FactorioComputerSimulator.Assembler
+﻿namespace FactorioComputerSimulator.Assembler;
+
+public struct CompiledLine
 {
-    public struct CompiledLine
+    public int SourceLineIndex { get; }
+    public string[] BinaryParts { get; }
+
+    public CompiledLine(int sourceLineIndex, string[] binaryParts)
     {
-        public int SourceLineIndex { get; }
-        public string[] BinaryParts { get; }
+        SourceLineIndex = sourceLineIndex;
+        BinaryParts = binaryParts;
+    }
 
-        public CompiledLine(int sourceLineIndex, string[] binaryParts)
-        {
-            SourceLineIndex = sourceLineIndex;
-            BinaryParts = binaryParts;
-        }
-
-        public override string ToString()
-        {
-            return string.Join(" ", BinaryParts);
-        }
+    public override string ToString()
+    {
+        return string.Join(" ", BinaryParts);
     }
 }

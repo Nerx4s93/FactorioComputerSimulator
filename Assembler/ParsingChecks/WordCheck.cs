@@ -1,10 +1,7 @@
-﻿using System.Drawing;
+﻿namespace FactorioComputerSimulator.Assembler.ParsingChecks;
 
-namespace FactorioComputerSimulator.Assembler.ParsingChecks
+internal abstract class WordCheck
 {
-    internal abstract class WordCheck
-    {
-        public abstract bool Check(string word, out Color color);
-        public abstract string OnCompile(string word);
-    }
+    public abstract bool Check(string word, out Color color);
+    public abstract string OnCompile(string word);
 }

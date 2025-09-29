@@ -1,12 +1,11 @@
 ﻿using FactorioComputerSimulator.Assembler.Simulation;
 
-namespace FactorioComputerSimulator.Assembler
+namespace FactorioComputerSimulator.Assembler;
+
+internal class CodeSimulator
 {
-    internal class CodeSimulator
+    public SimulatorHandle StartSimulation(CompiledLine[] code)
     {
-        public SimulatorHandle StartSimulation(CompiledLine[] code)
-        {
-            return new SimulatorHandle(code, 512, 64);
-        }
+        return new SimulatorHandle(code, 512, 64);
     }
 }

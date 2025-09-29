@@ -1,100 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 
 using FactorioComputerSimulator.Assembler.ParsingChecks;
 
-namespace FactorioComputerSimulator.Assembler
+namespace FactorioComputerSimulator.Assembler;
+
+internal static class SyntaxHighlighter
 {
-    internal static class SyntaxHighlighter
+    #region user32.dll
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+    private const int WM_SETREDRAW = 0x0B;
+
+    #endregion
+
+    private static readonly Color CommentColor = Color.Gray;
+    private static readonly WordCheckManager CheckManager = new WordCheckManager();
+
+    public static void Highlight(RichTextBox box)
     {
-        #region user32.dll
+        var text = box.Text;
+        var lines = text.Split(new[] { "\n" }, StringSplitOptions.None);
+        var formatted = new List<(int index, int length, Color color)>();
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
-        private const int WM_SETREDRAW = 0x0B;
+        var globalIndex = 0;
 
-        #endregion
-
-        private static readonly Color CommentColor = Color.Gray;
-        private static readonly WordCheckManager CheckManager = new WordCheckManager();
-
-        public static void Highlight(RichTextBox box)
+        foreach (var line in lines)
         {
-            var text = box.Text;
-            var lines = text.Split(new[] { "\n" }, StringSplitOptions.None);
-            var formatted = new List<(int index, int length, Color color)>();
+            var lineStart = globalIndex;
 
-            var globalIndex = 0;
-
-            foreach (var line in lines)
+            if (line.Length == 0)
             {
-                var lineStart = globalIndex;
+                globalIndex += 1;
+                continue;
+            }
 
-                if (line.Length == 0)
+            var commentStart = line.IndexOf("//");
+            var lineBeforeComment = line;
+
+            if (commentStart != -1)
+            {
+                lineBeforeComment = line.Substring(0, commentStart);
+                formatted.Add((lineStart + commentStart, line.Length - commentStart, CommentColor));
+            }
+
+            var parts = lineBeforeComment.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var currentPos = 0;
+
+            foreach (var part in parts)
+            {
+                var wordIndex = lineBeforeComment.IndexOf(part, currentPos, StringComparison.Ordinal);
+                if (wordIndex == -1)
                 {
-                    globalIndex += 1;
+                    currentPos += part.Length;
                     continue;
                 }
 
-                var commentStart = line.IndexOf("//");
-                var lineBeforeComment = line;
+                var absoluteIndex = lineStart + wordIndex;
 
-                if (commentStart != -1)
+                if (CheckManager.TryCheck(part, out var color))
                 {
-                    lineBeforeComment = line.Substring(0, commentStart);
-                    formatted.Add((lineStart + commentStart, line.Length - commentStart, CommentColor));
+                    formatted.Add((absoluteIndex, part.Length, color));
                 }
 
-                var parts = lineBeforeComment.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-                var currentPos = 0;
-
-                foreach (var part in parts)
-                {
-                    var wordIndex = lineBeforeComment.IndexOf(part, currentPos, StringComparison.Ordinal);
-                    if (wordIndex == -1)
-                    {
-                        currentPos += part.Length;
-                        continue;
-                    }
-
-                    var absoluteIndex = lineStart + wordIndex;
-
-                    if (CheckManager.TryCheck(part, out var color))
-                    {
-                        formatted.Add((absoluteIndex, part.Length, color));
-                    }
-
-                    currentPos = wordIndex + part.Length;
-                }
-
-                globalIndex += line.Length + 1;
+                currentPos = wordIndex + part.Length;
             }
 
-            box.SuspendLayout();
-
-            var handle = box.Handle;
-            SendMessage(handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
-
-            var selectionStart = box.SelectionStart;
-            var selectionLength = box.SelectionLength;
-
-            box.SelectAll();
-            box.SelectionColor = box.ForeColor;
-            box.SelectionBackColor = box.BackColor;
-
-            foreach (var item in formatted)
-            {
-                box.Select(item.index, item.length);
-                box.SelectionColor = item.color;
-            }
-
-            box.Select(selectionStart, selectionLength);
-            SendMessage(handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
-            box.Invalidate();
-            box.ResumeLayout();
+            globalIndex += line.Length + 1;
         }
+
+        box.SuspendLayout();
+
+        var handle = box.Handle;
+        SendMessage(handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+
+        var selectionStart = box.SelectionStart;
+        var selectionLength = box.SelectionLength;
+
+        box.SelectAll();
+        box.SelectionColor = box.ForeColor;
+        box.SelectionBackColor = box.BackColor;
+
+        foreach (var item in formatted)
+        {
+            box.Select(item.index, item.length);
+            box.SelectionColor = item.color;
+        }
+
+        box.Select(selectionStart, selectionLength);
+        SendMessage(handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+        box.Invalidate();
+        box.ResumeLayout();
     }
 }

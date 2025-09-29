@@ -1,8 +1,7 @@
-﻿namespace FactorioComputerSimulator.Assembler.Simulation
+﻿namespace FactorioComputerSimulator.Assembler.Simulation;
+
+internal enum DisplayFormat
 {
-    internal enum DisplayFormat
-    {
-        Hex,
-        Bin
-    }
+    Hex,
+    Bin
 }
