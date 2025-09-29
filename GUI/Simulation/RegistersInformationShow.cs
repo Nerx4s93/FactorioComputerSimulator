@@ -42,7 +42,7 @@ public partial class RegistersInformationShow : Form
     {
         RegostersGrid.Rows.Clear();
 
-        foreach (var name in _registers.GetRegisterNames())
+        foreach (var name in Registers.GetRegisterNames())
         {
             var value = _registers[name];
             var displayValue = _currentFormat == DisplayFormat.Hex

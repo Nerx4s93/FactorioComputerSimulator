@@ -16,10 +16,10 @@ public class Registers
             { "E", 0 },
         };
 
-    private readonly string[] _registerNamesById = new string[]
-    {
+    private static readonly string[] _registerNamesById = new string[]
+        {
             "A", "L", "M", "H", "K", "J", "B", "C", "D", "E"
-    };
+        };
 
     public byte this[string name]
     {
@@ -68,9 +68,9 @@ public class Registers
         }
     }
 
-    public IEnumerable<string> GetRegisterNames()
+    public static IEnumerable<string> GetRegisterNames()
     {
-        return _registers.Keys;
+        return _registerNamesById;
     }
 
     public event Action<string, byte> RegisterChanged;

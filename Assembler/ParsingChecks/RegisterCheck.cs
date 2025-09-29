@@ -1,19 +1,19 @@
-﻿namespace FactorioComputerSimulator.Assembler.ParsingChecks;
+﻿using FactorioComputerSimulator.Assembler.Simulation;
+
+namespace FactorioComputerSimulator.Assembler.ParsingChecks;
 
 internal class RegisterCheck : WordCheck
 {
-    private static readonly HashSet<string> Registers = new HashSet<string>() { "A", "L", "M", "P", "J", "B", "C", "D", "E" };
-
     private readonly Color _registerColor = Color.Cyan;
 
     public bool Check(string word)
     {
-        return Registers.Contains(word);
+        return Registers.GetRegisterNames().Contains(word);
     }
 
     public override bool Check(string word, out Color color)
     {
-        if (Registers.Contains(word))
+        if (Registers.GetRegisterNames().Contains(word))
         {
             color = _registerColor;
             return true;
@@ -24,9 +24,9 @@ internal class RegisterCheck : WordCheck
 
     public override string OnCompile(string word)
     {
-        if (Registers.Contains(word))
+        if (Registers.GetRegisterNames().Contains(word))
         {
-            var index = Registers.ToList().IndexOf(word);
+            var index = Registers.GetRegisterNames().ToList().IndexOf(word);
             var data = Convert.ToString(index, 2).PadLeft(8, '0');
             return $"{data}";
         }
