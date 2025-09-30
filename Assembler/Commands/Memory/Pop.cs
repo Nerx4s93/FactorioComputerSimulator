@@ -45,11 +45,12 @@ internal class Pop : Command
         var direction = (sc & 0b1000_0000) != 0;
         var stackSize = sc & 0b0111_1111;
 
-        if (Math.Abs(stekAddr - addr) == 0)
+        if (Math.Abs(stekAddr - addr) < 0)
         {
             return;
         }
 
+        addr -= direction ? 1 : -1;
         var value = ram[addr];
 
         switch (commandType)
@@ -64,8 +65,6 @@ internal class Pop : Command
                     return;
                 }
         }
-
-        addr -= direction ? 1 : -1;
 
         registers["Spa"] = (byte)((addr >> 8) & 0xFF);
         registers["Spb"] = (byte)(addr & 0xFF);

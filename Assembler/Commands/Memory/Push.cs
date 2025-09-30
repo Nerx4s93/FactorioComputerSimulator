@@ -56,8 +56,6 @@ internal class Push : Command
             return;
         }
 
-        addr += direction ? 1 : -1;
-
         switch (commandType)
         {
             case 0:
@@ -75,6 +73,8 @@ internal class Push : Command
                     return;
                 }
         }
+
+        addr += direction ? 1 : -1;
 
         registers["Spa"] = (byte)((addr >> 8) & 0xFF);
         registers["Spb"] = (byte)(addr & 0xFF);
