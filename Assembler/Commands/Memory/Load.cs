@@ -1,5 +1,4 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
-using FactorioComputerSimulator.Assembler.ParsingChecks;
 using FactorioComputerSimulator.Assembler.Simulation;
 
 namespace FactorioComputerSimulator.Assembler.Commands.Memory;
