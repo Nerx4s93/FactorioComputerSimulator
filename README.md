@@ -391,3 +391,22 @@ loop1:
 
 loop loop1
 ```
+
+## Функции
+```asm
+mov Cc, 0b10001111
+jmp start
+
+Func:
+
+mov A, 5
+add 8
+div 2
+
+ret
+
+start:
+call Func
+
+mov A, 8
+```
