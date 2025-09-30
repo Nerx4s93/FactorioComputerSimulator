@@ -2,8 +2,6 @@
 [Посмотреть наработки факторио](Factorio.md)
 
 # TODO
-- push
-- pop
 - call
 - ret
 
@@ -180,6 +178,12 @@ Id команды: 11.
 | 1           | M <- RAM\[const_const\]   | load 0b00000000, 0b10000011     | 4 байта       |
 | 2           | reg <- RAM\[H_K\]         | load B                          | 3 байта       |
 | 3           | reg <- RAM\[const_const\] | load B, 0b00000000, 0b10000011  | 5 байт        |
+
+### push
+Id команды: 21. 
+
+### pop
+Id команды: 22. 
 
 ### store
 Id команды: 12.  
