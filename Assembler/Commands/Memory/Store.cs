@@ -12,7 +12,6 @@ internal class Store : Command
 
     public override int GetCommandType(string[] command)
     {
-        var registerCheck = new RegisterCheck();
         if (command.Length == 0)
         {
             return 0;
