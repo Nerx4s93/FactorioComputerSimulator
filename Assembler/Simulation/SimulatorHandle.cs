@@ -47,6 +47,7 @@ public class SimulatorHandle
 
         var opcode = Rom[_pc];
         var infoByte = Rom[_pc + 1];
+        var commandType = infoByte >> 5;
         int argsCount = (infoByte >> 3) & 0b111;
 
         if (_pc + 1 + argsCount >= Rom.Size)
@@ -57,13 +58,12 @@ public class SimulatorHandle
         var args = new byte[argsCount];
         Array.Copy(Rom.Raw, _pc + 2, args, 0, argsCount);
 
-        ExecuteInstruction(opcode, args);
+        ExecuteInstruction(opcode, commandType, args);
     }
 
-    private void ExecuteInstruction(int id, byte[] args)
+    private void ExecuteInstruction(int id, int commandType, byte[] args)
     {
         var command = CommandRegistry.GetById(id);
-        var commandType = command.GetCommandType(args);
         command.Execute(ref _pc, commandType, args, Registers, Ram);
     }
 
