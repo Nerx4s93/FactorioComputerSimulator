@@ -4,8 +4,8 @@ namespace FactorioComputerSimulator.Assembler;
 
 internal static class CommandRegistry
 {
-    private static readonly Dictionary<int, Command> CommandsById = new Dictionary<int, Command>();
-    private static readonly Dictionary<string, Command> CommandsByName = new Dictionary<string, Command>();
+    private static readonly Dictionary<int, Command> CommandsById = [];
+    private static readonly Dictionary<string, Command> CommandsByName = [];
 
     static CommandRegistry()
     {
@@ -30,12 +30,12 @@ internal static class CommandRegistry
         }
     }
 
-    public static Command GetById(int id)
+    public static Command? GetById(int id)
     {
         return CommandsById.TryGetValue(id, out var cmd) ? cmd : null;
     }
 
-    public static Command GetByName(string name)
+    public static Command? GetByName(string name)
     {
         return CommandsByName.TryGetValue(name, out var cmd) ? cmd : null;
     }

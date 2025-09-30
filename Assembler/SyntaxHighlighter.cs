@@ -44,7 +44,7 @@ internal static class SyntaxHighlighter
                 formatted.Add((lineStart + commentStart, line.Length - commentStart, CommentColor));
             }
 
-            var parts = lineBeforeComment.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = lineBeforeComment.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
             var currentPos = 0;
 
             foreach (var part in parts)

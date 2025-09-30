@@ -48,7 +48,7 @@ public class SimulatorHandle
         var opcode = Rom[_pc];
         var infoByte = Rom[_pc + 1];
         var commandType = infoByte >> 6;
-        int argsCount = (infoByte >> 3) & 0b111;
+        var argsCount = (infoByte >> 3) & 0b111;
 
         if (_pc + 1 + argsCount >= Rom.Size)
         {

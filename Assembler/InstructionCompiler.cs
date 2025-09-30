@@ -88,7 +88,7 @@ internal class InstructionCompiler
                 continue;
             }
 
-            var parts = line.Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = line.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0)
             {
                 continue;
