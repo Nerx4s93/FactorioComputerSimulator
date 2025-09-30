@@ -36,7 +36,7 @@ internal static class SyntaxHighlighter
         var index = 0;
         foreach (var line in box.Text.Split('\n'))
         {
-            var commentStart = line.IndexOf("//");
+            var commentStart = line.IndexOf(";");
             if (commentStart != -1)
             {
                 box.Select(index + commentStart, line.Length - commentStart);
@@ -56,7 +56,7 @@ internal static class SyntaxHighlighter
                 pos = wordIndex + part.Length;
             }
 
-            index += line.Length + 1; // +1 для \n
+            index += line.Length + 1;
         }
 
         box.Select(selStart, selLength);

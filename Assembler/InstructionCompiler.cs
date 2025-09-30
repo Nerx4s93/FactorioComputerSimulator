@@ -22,7 +22,7 @@ internal class InstructionCompiler
         for (var i = 0; i < code.Length; i++)
         {
             var line = code[i];
-            var commentIndex = line.IndexOf("//");
+            var commentIndex = line.IndexOf(";");
             if (commentIndex != -1)
             {
                 line = line.Substring(0, commentIndex);
