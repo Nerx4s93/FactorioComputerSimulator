@@ -1,7 +1,7 @@
 ﻿using FactorioComputerSimulator.Assembler.Exceptions;
 using FactorioComputerSimulator.Assembler.Simulation;
 
-namespace FactorioComputerSimulator.Assembler.Commands.Memory;
+namespace FactorioComputerSimulator.Assembler.Commands.Transitions;
 
 internal class Call : Command
 {
@@ -40,7 +40,7 @@ internal class Call : Command
         var addr = (registers["Cpa"] << 8) | registers["Cpb"];
         var sc = registers["Cc"];
 
-        var direction = (sc & 0b1000_0000) != 0;
+        var direction = (sc & 0b1000_0000) != 0 ? 1 : -1;
         var stackSize = sc & 0b0111_1111;
 
         if (Math.Abs(stekAddr - addr) + 2 > stackSize)
@@ -57,7 +57,7 @@ internal class Call : Command
                     ram[addr] = (byte)((returnAddr >> 8) & 0xFF);
                     ram[addr + 1] = (byte)(returnAddr & 0xFF);
 
-                    addr += direction ? 2 : -2;
+                    addr += direction * 2;
                     registers["Cpa"] = (byte)((addr >> 8) & 0xFF);
                     registers["Cpb"] = (byte)(addr & 0xFF);
 
