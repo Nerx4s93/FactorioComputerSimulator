@@ -13,12 +13,13 @@ internal class Push : Command
     public override int GetCommandType(string[] command)
     {
         var registerCheck = new RegisterCheck();
-        if (registerCheck.Check(command[0]))
+
+        if (command.Length == 1)
         {
-            return 1;
-        }
-        else if (command.Length == 2)
-        {
+            if (registerCheck.Check(command[0]))
+            {
+                return 1;
+            }
             return 0;
         }
 
